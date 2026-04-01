@@ -1,6 +1,7 @@
 # Consultor de CEPs
 
 ## Objetivo
+
 Construir uma página com **HTML dinâmico + requisição HTTP** para consultar CEPs na API ViaCEP.
 
 ## Tecnologias utilizadas
