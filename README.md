@@ -58,14 +58,49 @@ npm run dev
 
 ## Fluxo geral da aplicação
 
-1. O servidor Express responde GET / com public/pages/index.html.
-2. Os arquivos estáticos são servidos em /assets (main.css e main.js).
-3. No navegador, o usuário digita um CEP e pressiona Enter.
-4. O JavaScript remove todos os caracteres não numéricos (replace(/\D/g, "")).
-5. Se o resultado não tiver 8 dígitos, exibe erro.
-6. Se tiver 8 dígitos, exibe estado de carregamento e faz fetch no ViaCEP.
-7. A interface mostra erro (response.ok === false ou data.erro) ou sucesso com os dados retornados.
-8. Quando o input fica vazio, o resultado é limpo.
+- O servidor Express responde `GET /` com `public/pages/index.html`.  
+- Os arquivos estáticos são servidos em `/assets` (`main.css` e `main.js`).  
+- No navegador, o usuário digita um CEP e pressiona `Enter`.  
+- O JavaScript remove todos os caracteres não numéricos (`replace(/\D/g, "")`).  
+- Se o resultado não tiver 8 dígitos, exibe erro.  
+- Se tiver 8 dígitos, exibe estado de carregamento e faz `fetch` no ViaCEP.  
+- A interface mostra erro (`response.ok === false` ou `data.erro`) ou sucesso com os dados retornados.  
+- Quando o input fica vazio, o resultado é limpo.  
 
+---
 
+## Explicação das funções do main.js
+
+**Arquivo:** `public/assets/js/main.js`
+
+### `showResult(message, type)`
+
+- Atualiza `#result` com HTML (`innerHTML`).  
+- Aplica classe CSS dinâmica:
+  - `result error`
+  - `result loading`
+  - `result success`
+
+---
+
+### `handleCepSearch()`
+
+**Fluxo implementado:**
+
+1. Lê o valor do input e normaliza para apenas dígitos.  
+2. Valida tamanho de 8 dígitos.  
+3. Exibe `"Consultando CEP..."`.  
+4. Faz GET `https://viacep.com.br/ws/{cep}/json/`.  
+5. Se `response.ok` for falso, exibe `"Falha o serviço."`.  
+6. Se `data.erro` vier verdadeiro, exibe `"CEP não encontrado."`.  
+7. Caso contrário, exibe os dados retornados com sucesso.  
+8. Quando o input fica vazio, o resultado é limpo.  
+
+---
+
+## Observações
+
+- Certifique-se de que a porta definida no `.env` está disponível.  
+- O projeto utiliza a API pública ViaCEP, portanto depende de conexão com a internet.  
+- Nenhuma chave de API é necessária.  
 
